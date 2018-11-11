@@ -1,0 +1,35 @@
+{
+  "name": "nutrition_counter_api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "describe": "^1.2.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.4",
+    "package.json": "^2.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elliotkim916/nutrition_counter_api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elliotkim916/nutrition_counter_api/issues"
+  },
+  "homepage": "https://github.com/elliotkim916/nutrition_counter_api#readme"
+}
