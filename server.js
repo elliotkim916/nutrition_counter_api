@@ -7,6 +7,8 @@ mongoose.Promise = global.Promise;
 
 const exerciseRouter = require('./routes/exercise.js');
 const nutritionRouter = require('./routes/nutrition.js');
+// require('dotenv').config();
+// for env files
 
 const {PORT, DATABASE_URL} = require('./config');
 //const PORT = process.env.PORT || 3000;
