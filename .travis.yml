@@ -1,0 +1,11 @@
+language: node_js
+node_js: node
+services:
+- mongodb
+deploy:
+  provider: heroku
+  api_key:
+    secure: Yh/5rQYeXj7GzcBn1A2OrSv03t3nm5mrEQLnR34e6T38ONbC00D02CW1rNLJt/AbpQUU4V7eW22ItsQXIzQ/nEFMgYzAkUuvTCEmkt6WkJ6FcooRPx8+hSVlj7YfK5PYV6LoOAp2Fwt4R5ExD4LLFE9fO8JrsyG3HHV0XtJfAbDljbbBeOef5Wo6JVe9VcuUHnFaH5eQwbpLmvjM7riwV6PTCnxqqCQ+byx9ncGIB6VygWSlYOURBWq0IFQR8h8rOAna4r7PAdc2EQY4AIJQGiaxNXfea2sFwE5T5ot0ch5G331AftiWls4P+qVMdTlDAwtDPgYG6lXgCVKrQMgwM/pIu9GUU+Rn18Nn+GDMDBb39JFImBHy6877Soe4qE6sfMckc0feMpCshejRxdApVijbcW1ZZVKQUbMrWtJZgrkiUAXryxhvolopfqYMOc8XwyorOWErZmva1a+C8zeFyaHLFAbst+anU0kbE79AyNTGDS6ThtpVK5bHu3x9xUTLTiI9xG4eJD4qoTyiDbxaQtaK/AfsAQpE4/ojO9l7dUVwcACmBXK/sZnJI71zdcVlO+dq3dgB9J1bUtxwlgJpK4jS/VXl6sqSF1yYWs7pYb5LurrIegKIs072Nj8QX1D2B+/pcCFGToynFBlfkgz3waZA5JfKEGHqwd7PvBqIL/E=
+  app: fathomless-eyrie-53831
+  on:
+    repo: elliotkim916/nutrition_counter_api
