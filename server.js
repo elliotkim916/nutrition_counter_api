@@ -61,8 +61,12 @@ function closeServer () {
   });
 }
 
+// if script is run directly, then runServer function will be called
+// but if the file is included from somewhere else, then the function wont be called
+// allowing the server to be started at a different point (such as for testing)
 if (require.main === module) {
-  runServer(DATABASE_URL).catch(err => err);
+  // if I run from command line node server.js, line 68 is read
+  runServer(DATABASE_URL).catch(err => console.error(err));
 }
 
 module.exports = {app, runServer, closeServer};
