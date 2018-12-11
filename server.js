@@ -10,6 +10,8 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 // use built in ES6 promises
 
+const {router: usersRouter} = require('./users');
+
 const exerciseRouter = require('./routes/exercise.js');
 const nutritionRouter = require('./routes/nutrition.js');
 
@@ -22,6 +24,7 @@ app.use(
   })
 );
 
+app.use('/api/users', usersRouter);
 app.use('/api/exercise', exerciseRouter);
 app.use('/api/nutrition', nutritionRouter);
 
