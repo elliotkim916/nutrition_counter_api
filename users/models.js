@@ -35,10 +35,12 @@ UserSchema.methods.validatePassword = function(password) {
   return bcrypt.compare(password, this.password);
 };
 
-UserSchema.methods.hashPassword = function(password) {
+UserSchema.statics.hashPassword = function(password) {
   return bcrypt.hash(password, 10);
 };
 
 const User = mongoose.model('User', UserSchema);
+// User is an object
 
 module.exports = {User};
+// exporting an object with key User that has value of the User object
