@@ -96,7 +96,8 @@ router.post('/', jsonParser, (req, res) => {
       return User.hashPassword(password);
     })
     .then(hash => {
-      User.create({
+      // User.create is where connection is made to mongoDB 
+      return User.create({
         username,
         password: hash,
         firstName,
