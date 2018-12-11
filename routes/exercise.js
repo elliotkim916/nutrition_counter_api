@@ -5,15 +5,18 @@ const jsonParser = require('express').json();
 const { ExerciseList } = require('../models/exercise');
 
 router.get('/', (req, res) => {
-  res.json(ExerciseList.get());
+  ExerciseList.find()
+    .then(exercise => {
+      res.status(200).json(exercise);
+    });
 });
 
 router.post('/', jsonParser, (req, res) => {
   ExerciseList
     .create({
-      CaloriesBurned : req.params.CaloriesBurned,
-      MET : req.params.MET,
-      Duration : req.params.Duration 
+      CaloriesBurned : req.body.CaloriesBurned,
+      MET : req.body.MET,
+      Duration : req.body.Duration 
     })
     .then(exercise => res.status(201).json(exercise))
     .catch(() => res.status(500).json({error : 'Something went wrong'}));
