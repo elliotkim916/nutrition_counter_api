@@ -2,10 +2,13 @@
 
 require('dotenv').config();
 // for env files
+// takes env file & pushes into process.env
+
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+// use built in ES6 promises
 
 const exerciseRouter = require('./routes/exercise.js');
 const nutritionRouter = require('./routes/nutrition.js');
