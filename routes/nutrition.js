@@ -5,7 +5,10 @@ const jsonParser = require('express').json();
 const { NutritionList } = require('../models/nutrition');
 
 router.get('/', (req, res) => {
-  res.json(NutritionList.get()); 
+  NutritionList.find()
+    .then(nutrition => {
+      res.status(200).json(nutrition);
+    });
 });
 
 router.post('/', jsonParser, (req, res) => {
