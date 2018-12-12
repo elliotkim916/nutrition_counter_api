@@ -7,10 +7,11 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-// use built in ES6 promises
+mongoose.Promise = global.Promise; // use built in ES6 promises
+const passport = require('passport');
 
 const {router: usersRouter} = require('./users');
+const {router: localStrategy} = require('./auth');
 
 const exerciseRouter = require('./routes/exercise.js');
 const nutritionRouter = require('./routes/nutrition.js');
@@ -23,6 +24,8 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );
+
+passport.use(localStrategy);
 
 app.use('/api/users', usersRouter);
 app.use('/api/exercise', exerciseRouter);
