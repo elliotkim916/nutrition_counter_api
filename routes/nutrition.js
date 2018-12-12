@@ -3,6 +3,9 @@
 const router = require('express').Router();
 const jsonParser = require('express').json();
 const { NutritionList } = require('../models/nutrition');
+const passport = require('passport');
+
+router.use(passport.authenticate('jwt', {session: false}));
 
 router.get('/', (req, res) => {
   NutritionList.find()
