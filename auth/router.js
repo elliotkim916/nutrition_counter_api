@@ -21,9 +21,11 @@ const localAuth = passport.authenticate('local', {session: false});
 // store a reference to the middleware function as a variable and pass it as a argument to the post endpoint
 // session is set to false to stop Passport from adding session cookies which identify the user to the response
 // instead of using cookies to authenticate, user supplies their JWT in request header
+router.use(bodyParser.json());
 
 router.post('/login', localAuth, (req, res) => {
-  const authToken = createAuthToken(req.user.seralize());
+  const authToken = createAuthToken(req.user.serialize());
   res.json({authToken});
 });
 
+module.exports = {router};
