@@ -11,7 +11,7 @@ mongoose.Promise = global.Promise; // use built in ES6 promises
 const passport = require('passport');
 
 const {router: usersRouter} = require('./users');
-const {router: localStrategy} = require('./auth');
+const {router: authRouter, localStrategy, jwtStrategy} = require('./auth');
 
 const exerciseRouter = require('./routes/exercise.js');
 const nutritionRouter = require('./routes/nutrition.js');
@@ -25,9 +25,12 @@ app.use(
   })
 );
 
+// to register our strategies with passport
 passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 app.use('/api/users', usersRouter);
+app.use('/api/auth', authRouter);
 app.use('/api/exercise', exerciseRouter);
 app.use('/api/nutrition', nutritionRouter);
 
