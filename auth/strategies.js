@@ -29,11 +29,14 @@ const localStrategy = new LocalStrategy((username, password, callback) => {
         });
       }
       return callback(null, user);
+      // accepts 3 parameters
+      // if no error, 1st parameter is null & 2nd parameter is the user
     })
     .catch(err => {
       if (err.reason === 'LoginError') {
-        return callback(null, false, err);
+        return callback(err, false, err.message);
       }
+      // if error, 1st parameter is the err & 2nd parameter is false
       return callback(err, false);
     });
 });
