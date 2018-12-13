@@ -7,8 +7,9 @@ const passport = require('passport');
 
 router.use(passport.authenticate('jwt', {session: false}));
 
-router.get('/', (req, res) => {
-  ExerciseList.find()
+router.get('/:username', (req, res) => {
+  ExerciseList
+    .find({username: req.params.username})
     .then(exercise => {
       res.status(200).json(exercise);
     });
@@ -19,7 +20,8 @@ router.post('/', jsonParser, (req, res) => {
     .create({
       CaloriesBurned : req.body.CaloriesBurned,
       MET : req.body.MET,
-      Duration : req.body.Duration 
+      Duration : req.body.Duration,
+      username : req.body.username 
     })
     .then(exercise => res.status(201).json(exercise))
     .catch(() => res.status(500).json({error : 'Something went wrong'}));

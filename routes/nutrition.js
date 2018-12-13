@@ -7,8 +7,9 @@ const passport = require('passport');
 
 router.use(passport.authenticate('jwt', {session: false}));
 
-router.get('/', (req, res) => {
-  NutritionList.find()
+router.get('/:username', (req, res) => {
+  NutritionList
+    .find({username: req.params.username})
     .then(nutrition => {
       res.status(200).json(nutrition);
     });
@@ -26,7 +27,8 @@ router.post('/', jsonParser, (req, res) => {
       Carbohydrates : req.body.Carbohydrates,
       Dietary_Fiber : req.body.Dietary_Fiber,
       Sugars : req.body.Sugars,
-      Protein : req.body.Protein 
+      Protein : req.body.Protein,
+      username : req.body.username  
     })
     .then(nutrition => res.status(201).json(nutrition))
     .catch(() => res.status(500).json({error: 'Something went wrong'}));
