@@ -3,12 +3,12 @@
     "CaloriesBurned" : 500,
     "MET" : 400,
     "Duration" : "2 hours",
-    "username" : "testuser001"
+    "username" : "exercise-test-user"
   },
   {
     "CaloriesBurned" : 400,
     "MET" : 300,
     "Duration" : "1.5 hours",
-    "username" : "testuser002"
+    "username" : "exercise-test-user"
   }
 ]
