@@ -53,15 +53,24 @@ describe('Nutrition Counter Server Side API', function() {
   });
 
   describe('GET endpoint', function() {
+    // important to note: this test and the other tests return a promise
+    // when using Mocha to run async tests, we need to either pass a done callback to the it block and call done()
+    // or have the test return a promise
     it('should return all of users exercise information', function() {
+      let res;
       return chai.request(app)
         .get(`/api/exercise/${TEST_USER.username}`)
         .set('Authorization', `Bearer ${TEST_TOKEN}`)
-        .then(res => {
+        .then(_res => {
+          res = _res;
           expect(res).to.be.status(200);
           expect(res).to.be.json;
           expect(res.body).to.be.a('array');
           expect(res.body).to.have.lengthOf.at.least(1);
+          return ExerciseList.count();
+        })
+        .then(count => {
+          expect(res.body).to.have.lengthOf(count);
         });
     });
 
