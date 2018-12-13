@@ -15,7 +15,8 @@ const nutritionSchema = mongoose.Schema({
   Carbohydrates : {type: Number},
   Dietary_Fiber : {type: Number},
   Sugars : {type: Number},
-  Protein : {type: Number}
+  Protein : {type: Number},
+  username : {type: String}
 });
 
 // serialize method, which lets us specify how nutrition is represented outside of our application via our API. 
@@ -30,7 +31,8 @@ nutritionSchema.methods.serialize = () => {
     Carbohydrates : this.Carbohydrates,
     Dietary_Fiber : this.Dietary_Fiber,
     Sugars : this.Sugars,
-    Protein : this.Protein
+    Protein : this.Protein,
+    username : this.username
   };
 };
 
