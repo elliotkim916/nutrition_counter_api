@@ -3,12 +3,14 @@
     "CaloriesBurned" : 500,
     "MET" : 400,
     "Duration" : "2 hours",
-    "username" : "exercise-test-user"
+    "username" : "exercise-test-user",
+    "_id": "5afb01574c7557177f786877"
   },
   {
     "CaloriesBurned" : 400,
     "MET" : 300,
     "Duration" : "1.5 hours",
-    "username" : "exercise-test-user"
+    "username" : "exercise-test-user",
+    "_id": "5afb01574c7557177f786878"
   }
 ]
