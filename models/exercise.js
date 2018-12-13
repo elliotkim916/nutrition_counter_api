@@ -14,7 +14,8 @@ exerciseSchema.methods.serialize = () => {
     CaloriesBurned: this.CaloriesBurned,
     MET: this.MET,
     Duration: this.Duration,
-    username: this.username
+    username: this.username,
+    id: this._id
   };
 };
 

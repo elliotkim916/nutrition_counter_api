@@ -32,7 +32,8 @@ nutritionSchema.methods.serialize = () => {
     Dietary_Fiber : this.Dietary_Fiber,
     Sugars : this.Sugars,
     Protein : this.Protein,
-    username : this.username
+    username : this.username,
+    id : this._id
   };
 };
 
