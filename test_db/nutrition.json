@@ -6,12 +6,12 @@
     "Cholesterol" : 20,
     "Sodium" : 120,
     "Potassium" : 40,
-    "Carbohydrate" : 30,
+    "Carbohydrates" : 30,
     "Dietary_Fiber" : 10,
     "Sugars" : 8,
     "Protein" : 20,
     "username" : "test-user",
-    "id" : "5afb01574c7557177f786870"
+    "_id" : "5afb01574c7557177f786870"
   },
   {
     "Calories" : 400,
@@ -20,11 +20,11 @@
     "Cholesterol" : 25,
     "Sodium" : 125,
     "Potassium" : 45,
-    "Carbohydrate" : 35,
+    "Carbohydrates" : 35,
     "Dietary_Fiber" : 15,
     "Sugars" : 10,
     "Protein" : 30,
     "username" : "test-user",
-    "id" : "5afb01574c7557177f786871"
+    "_id" : "5afb01574c7557177f786871"
   }
 ]
