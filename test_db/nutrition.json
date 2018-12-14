@@ -10,7 +10,7 @@
     "Dietary_Fiber" : 10,
     "Sugars" : 8,
     "Protein" : 20,
-    "username" : "nutrition-test-user",
+    "username" : "test-user",
     "id" : "5afb01574c7557177f786870"
   },
   {
@@ -24,7 +24,7 @@
     "Dietary_Fiber" : 15,
     "Sugars" : 10,
     "Protein" : 30,
-    "username" : "nutrition-test-user",
+    "username" : "test-user",
     "id" : "5afb01574c7557177f786871"
   }
 ]
