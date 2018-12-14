@@ -14,7 +14,9 @@ const jwt = require('jsonwebtoken');
 const config = require('../config');
 
 const {ExerciseList} = require('../models/exercise');
-const testData = require('../test_db/exercise');
+const {NutritionList} = require('../models/nutrition');
+const exerciseTestData = require('../test_db/exercise');
+const nutritionTestData = require('../test_db/nutrition');
 
 function teardownDb() {
   return mongoose.connection.dropDatabase();
@@ -29,8 +31,8 @@ const createAuthToken = user => {
 };
 
 const TEST_USER = {
-  'username': 'exercise-test-user',
-  'password': 'exercise-test-password' 
+  'username': 'test-user',
+  'password': 'test-password' 
 };
 
 const TEST_TOKEN = createAuthToken(TEST_USER);
@@ -41,7 +43,7 @@ describe('Nutrition Counter Server Side API', function() {
   });
 
   beforeEach(function() {
-    return ExerciseList.insertMany(testData);
+    return NutritionList.insertMany(nutritionTestData) && ExerciseList.insertMany(exerciseTestData);
   });
 
   afterEach(function() {
@@ -138,7 +140,7 @@ describe('Nutrition Counter Server Side API', function() {
   });
 
   describe('DELETE endpoint of exercise', function() {
-    it('should delete exercise entry', function() {
+    it('should delete an exercise entry', function() {
       return ExerciseList
         .findOne()
         .then(entry => {
@@ -153,6 +155,157 @@ describe('Nutrition Counter Server Side API', function() {
               expect(_exercise).to.be.null;
             });
         }); 
+    });
+  });
+
+  describe('GET endpoint of nutrition', function() {
+    it('should return all of users nutrition information', function() {
+      let res;
+      return chai.request(app)
+        .get(`/api/nutrition/${TEST_USER.username}`)
+        .set('Authorization', `Bearer ${TEST_TOKEN}`)
+        .then(_res => {
+          res = _res;
+          expect(res).to.be.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('array');
+          expect(res.body).to.have.lengthOf.at.least(1);
+          return NutritionList.count();
+        })
+        .then(count => {
+          expect(res.body).to.have.lengthOf(count);
+        });
+    });
+
+    let resNutritionEntry;
+    it('should return all of users nutrition information with the right fields', function() {
+      return chai.request(app)
+        .get(`/api/nutrition/${TEST_USER.username}`)
+        .set('Authorization', `Bearer ${TEST_TOKEN}`)
+        .then(res => {
+          expect(res).to.be.status(200);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('array');
+          expect(res.body).to.have.lengthOf.at.least(1);
+
+          res.body.forEach(post => {
+            expect(post).to.be.a('object');
+            expect(post).to.include.keys(
+              'Calories',
+              'Total_Fat',
+              'Saturated_Fat',
+              'Cholesterol',
+              'Sodium',
+              'Potassium',
+              'Carbohydrates',
+              'Dietary_Fiber',
+              'Sugars',
+              'Protein',
+              'username');
+          });
+
+          resNutritionEntry = res.body[0];
+          return NutritionList.findById(resNutritionEntry._id);
+        })
+        .then(post => {
+          expect(resNutritionEntry.Calories).to.equal(post.Calories);
+          expect(resNutritionEntry.Total_Fat).to.equal(post.Total_Fat);
+          expect(resNutritionEntry.Saturated_Fat).to.equal(post.Saturated_Fat);
+          expect(resNutritionEntry.Cholesterol).to.equal(post.Cholesterol);
+          expect(resNutritionEntry.Sodium).to.equal(post.Sodium);
+          expect(resNutritionEntry.Potassium).to.equal(post.Potassium);
+          expect(resNutritionEntry.Carbohydrates).to.equal(post.Carbohydrates);
+          expect(resNutritionEntry.Dietary_Fiber).to.equal(post.Dietary_Fiber);
+          expect(resNutritionEntry.Sugars).to.equal(post.Sugars);
+          expect(resNutritionEntry.Protein).to.equal(post.Protein);
+          expect(resNutritionEntry.username).to.equal(post.username);
+        });
+    });
+  });
+
+  describe('POST endpoint of nutrition', function() {
+    it('should add a new nutrition entry', function() {
+      const newNutrition = {
+        'Calories' : 401,
+        'Total_Fat' : 19,
+        'Saturated_Fat' : 16,
+        'Cholesterol' : 26,
+        'Sodium' : 126,
+        'Potassium' : 46,
+        'Carbohydrates' : 36,
+        'Dietary_Fiber' : 16,
+        'Sugars' : 11,
+        'Protein' : 31,
+        'username' : 'test-user',
+        '_id' : '5afb01574c7557177f786872'
+      };
+
+      return chai.request(app)
+        .post(`/api/nutrition`)
+        .set('Authorization', `Bearer ${TEST_TOKEN}`)
+        .send(newNutrition)
+        .then(res => {
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys(
+            'Calories',
+            'Total_Fat',
+            'Saturated_Fat',
+            'Cholesterol',
+            'Sodium',
+            'Potassium',
+            'Carbohydrates',
+            'Dietary_Fiber',
+            'Sugars',
+            'Protein',
+            'username');
+          expect(res.body.Calories).to.equal(newNutrition.Calories);
+          expect(res.body.Total_Fat).to.equal(newNutrition.Total_Fat);
+          expect(res.body.Saturated_Fat).to.equal(newNutrition.Saturated_Fat);
+          expect(res.body.Cholesterol).to.equal(newNutrition.Cholesterol);
+          expect(res.body.Sodium).to.equal(newNutrition.Sodium);
+          expect(res.body.Potassium).to.equal(newNutrition.Potassium);
+          expect(res.body.Carbohydrates).to.equal(newNutrition.Carbohydrates);
+          expect(res.body.Dietary_Fiber).to.equal(newNutrition.Dietary_Fiber);
+          expect(res.body.Sugars).to.equal(newNutrition.Sugars);
+          expect(res.body.Protein).to.equal(newNutrition.Protein);
+          expect(res.body.username).to.equal(newNutrition.username);
+          expect(res.body.id).to.not.be.null;
+          return NutritionList.findById(res.body._id);
+        })
+        .then(post => {
+          expect(newNutrition.Calories).to.equal(post.Calories);
+          expect(newNutrition.Total_Fat).to.equal(post.Total_Fat);
+          expect(newNutrition.Saturated_Fat).to.equal(post.Saturated_Fat);
+          expect(newNutrition.Cholesterol).to.equal(post.Cholesterol);
+          expect(newNutrition.Sodium).to.equal(post.Sodium);
+          expect(newNutrition.Potassium).to.equal(post.Potassium);
+          expect(newNutrition.Carbohydrates).to.equal(post.Carbohydrates);
+          expect(newNutrition.Dietary_Fiber).to.equal(post.Dietary_Fiber);
+          expect(newNutrition.Sugars).to.equal(post.Sugars);
+          expect(newNutrition.Protein).to.equal(post.Protein);
+          expect(newNutrition.username).to.equal(post.username);
+        });
+    });
+  });
+
+  describe('Delete endpoint for nutrition', function() {
+    it('should delete a nutrition entry', function() {
+      return NutritionList
+        .findOne()
+        .then(nutrition => {
+          return chai.request(app)
+            .delete(`/api/nutrition/${nutrition.id}`)
+            .set('Authorization', `Bearer ${TEST_TOKEN}`);
+        })
+        .then(res => {
+          expect(res).to.have.status(204);
+          return NutritionList.findById(res.body.id);
+        })
+        .then(post => {
+          expect(post).to.be.null;
+        });
     });
   });
 });
