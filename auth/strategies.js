@@ -5,7 +5,7 @@ const {Strategy: JwtStrategy, ExtractJwt} = require('passport-jwt');
 
 const {User} = require('../users/models');
 const {JWT_SECRET} = require('../config');
-console.log(JWT_SECRET);
+
 // the strategy retrieves the username & password from the req.body & passes them to a callback function
 // we create a callback function that checks the credentials against the values stored in the DB
 const localStrategy = new LocalStrategy((username, password, callback) => {
