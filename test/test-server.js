@@ -52,7 +52,7 @@ describe('Nutrition Counter Server Side API', function() {
     return closeServer();
   });
 
-  describe('GET endpoint', function() {
+  describe('GET endpoint of exercise', function() {
     // important to note: this test and the other tests return a promise
     // when using Mocha to run async tests, we need to either pass a done callback to the it block and call done()
     // or have the test return a promise
@@ -102,4 +102,57 @@ describe('Nutrition Counter Server Side API', function() {
     });
   });
 
+  describe('POST endpoint of exercise', function() {
+    it('should add a new exercise entry', function() {
+      const newExercise = {
+        'CaloriesBurned' : 200,
+        'MET' : 100,
+        'Duration' : '1 hour',
+        'username' : 'exercise-test-user',
+        'id' : '5afb01574c7557177f786879'
+      };
+
+      return chai.request(app)
+        .post(`/api/exercise`)
+        .set('Authorization', `Bearer ${TEST_TOKEN}`)
+        .send(newExercise)
+        .then(res => {
+          expect(res).to.have.status(201);
+          expect(res).to.be.json;
+          expect(res.body).to.be.a('object');
+          expect(res.body).to.include.keys('CaloriesBurned', 'MET', 'Duration', 'username');
+          expect(res.body.username).to.equal(newExercise.username);
+          expect(res.body.CaloriesBurned).to.equal(newExercise.CaloriesBurned);
+          expect(res.body.MET).to.equal(newExercise.MET);
+          expect(res.body.Duration).to.equal(newExercise.Duration);
+          expect(res.body.id).to.not.be.null;
+          return ExerciseList.findById(res.body._id);
+        })
+        .then(post => {
+          expect(post.CaloriesBurned).to.equal(newExercise.CaloriesBurned);
+          expect(post.MET).to.equal(newExercise.MET);
+          expect(post.Duration).to.equal(newExercise.Duration);
+          expect(post.username).to.equal(newExercise.username);
+        });
+    });
+  });
+
+  describe('DELETE endpoint of exercise', function() {
+    it('should delete exercise entry', function() {
+      return ExerciseList
+        .findOne()
+        .then(entry => {
+          return chai.request(app)
+            .delete(`/api/exercise/${entry.id}`)
+            .set('Authorization', `Bearer ${TEST_TOKEN}`)
+            .then(res => {
+              expect(res).to.have.status(204);
+              return ExerciseList.findById(entry.id);
+            })
+            .then(_exercise => {
+              expect(_exercise).to.be.null;
+            });
+        }); 
+    });
+  });
 });
