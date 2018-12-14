@@ -1,0 +1,30 @@
+[
+  {
+    "Calories" : 300,
+    "Total_Fat" : 8,
+    "Saturated_Fat" : 5,
+    "Cholesterol" : 20,
+    "Sodium" : 120,
+    "Potassium" : 40,
+    "Carbohydrate" : 30,
+    "Dietary_Fiber" : 10,
+    "Sugars" : 8,
+    "Protein" : 20,
+    "username" : "nutrition-test-user",
+    "id" : "5afb01574c7557177f786870"
+  },
+  {
+    "Calories" : 400,
+    "Total_Fat" : 18,
+    "Saturated_Fat" : 15,
+    "Cholesterol" : 25,
+    "Sodium" : 125,
+    "Potassium" : 45,
+    "Carbohydrate" : 35,
+    "Dietary_Fiber" : 15,
+    "Sugars" : 10,
+    "Protein" : 30,
+    "username" : "nutrition-test-user",
+    "id" : "5afb01574c7557177f786871"
+  }
+]
