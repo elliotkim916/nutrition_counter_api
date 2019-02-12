@@ -15,7 +15,7 @@ router.get('/:username', (req, res) => {
     });
 });
 
-router.post('/', jsonParser, (req, res) => {
+router.post('/:username', jsonParser, (req, res) => {
   ExerciseList
     .create({
       CaloriesBurned : req.body.CaloriesBurned,
