@@ -15,19 +15,15 @@ router.get('/:username', (req, res) => {
     });
 });
 
-router.post('/', jsonParser, (req, res) => {
+router.post('/:username', jsonParser, (req, res) => {
   NutritionList
     .create({
-      Calories : req.body.Calories,
-      Total_Fat : req.body.Total_Fat,
-      Saturated_Fat : req.body.Saturated_Fat,
-      Cholesterol : req.body.Cholesterol,
-      Sodium : req.body.Sodium,
-      Potassium : req.body.Potassium,
-      Carbohydrates : req.body.Carbohydrates,
-      Dietary_Fiber : req.body.Dietary_Fiber,
-      Sugars : req.body.Sugars,
-      Protein : req.body.Protein,
+      calories : req.body.calories,
+      fat : req.body.fat,
+      carbs : req.body.carbs,
+      protein : req.body.protein,
+      sugar : req.body.sugar,
+      sodium : req.body.sodium,
       username : req.body.username  
     })
     .then(nutrition => res.status(201).json(nutrition))
