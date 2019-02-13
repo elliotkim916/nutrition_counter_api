@@ -111,11 +111,11 @@ describe('Nutrition Counter Server Side API', function() {
         'MET' : 100,
         'Duration' : '1 hour',
         'username' : 'exercise-test-user',
-        'id' : '5afb01574c7557177f786879'
+        '_id' : '5afb01574c7557177f786879'
       };
 
       return chai.request(app)
-        .post(`/api/exercise`)
+        .post(`/api/exercise/${newExercise.username}`)
         .set('Authorization', `Bearer ${TEST_TOKEN}`)
         .send(newExercise)
         .then(res => {
@@ -191,16 +191,12 @@ describe('Nutrition Counter Server Side API', function() {
           res.body.forEach(post => {
             expect(post).to.be.a('object');
             expect(post).to.include.keys(
-              'Calories',
-              'Total_Fat',
-              'Saturated_Fat',
-              'Cholesterol',
-              'Sodium',
-              'Potassium',
-              'Carbohydrates',
-              'Dietary_Fiber',
-              'Sugars',
-              'Protein',
+              'calories',
+              'fat',
+              'carbs',
+              'protein',
+              'sugar',
+              'sodium',
               'username');
           });
 
@@ -208,16 +204,12 @@ describe('Nutrition Counter Server Side API', function() {
           return NutritionList.findById(resNutritionEntry._id);
         })
         .then(post => {
-          expect(resNutritionEntry.Calories).to.equal(post.Calories);
-          expect(resNutritionEntry.Total_Fat).to.equal(post.Total_Fat);
-          expect(resNutritionEntry.Saturated_Fat).to.equal(post.Saturated_Fat);
-          expect(resNutritionEntry.Cholesterol).to.equal(post.Cholesterol);
-          expect(resNutritionEntry.Sodium).to.equal(post.Sodium);
-          expect(resNutritionEntry.Potassium).to.equal(post.Potassium);
-          expect(resNutritionEntry.Carbohydrates).to.equal(post.Carbohydrates);
-          expect(resNutritionEntry.Dietary_Fiber).to.equal(post.Dietary_Fiber);
-          expect(resNutritionEntry.Sugars).to.equal(post.Sugars);
-          expect(resNutritionEntry.Protein).to.equal(post.Protein);
+          expect(resNutritionEntry.calories).to.equal(post.calories);
+          expect(resNutritionEntry.fat).to.equal(post.fat);
+          expect(resNutritionEntry.carbs).to.equal(post.carbs);
+          expect(resNutritionEntry.protein).to.equal(post.protein);
+          expect(resNutritionEntry.sugar).to.equal(post.sugar);
+          expect(resNutritionEntry.sodium).to.equal(post.sodium);
           expect(resNutritionEntry.username).to.equal(post.username);
         });
     });
@@ -226,22 +218,18 @@ describe('Nutrition Counter Server Side API', function() {
   describe('POST endpoint of nutrition', function() {
     it('should add a new nutrition entry', function() {
       const newNutrition = {
-        'Calories' : 401,
-        'Total_Fat' : 19,
-        'Saturated_Fat' : 16,
-        'Cholesterol' : 26,
-        'Sodium' : 126,
-        'Potassium' : 46,
-        'Carbohydrates' : 36,
-        'Dietary_Fiber' : 16,
-        'Sugars' : 11,
-        'Protein' : 31,
+        'calories' : 401,
+        'fat' : 19,
+        'carbs' : 36,
+        'protein' : 31,
+        'sugar' : 11,
+        'sodium' : 126,
         'username' : 'test-user',
         '_id' : '5afb01574c7557177f786872'
       };
 
       return chai.request(app)
-        .post(`/api/nutrition`)
+        .post(`/api/nutrition/${newNutrition.username}`)
         .set('Authorization', `Bearer ${TEST_TOKEN}`)
         .send(newNutrition)
         .then(res => {
@@ -249,42 +237,30 @@ describe('Nutrition Counter Server Side API', function() {
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
           expect(res.body).to.include.keys(
-            'Calories',
-            'Total_Fat',
-            'Saturated_Fat',
-            'Cholesterol',
-            'Sodium',
-            'Potassium',
-            'Carbohydrates',
-            'Dietary_Fiber',
-            'Sugars',
-            'Protein',
+            'calories',
+            'fat',
+            'carbs',
+            'protein',
+            'sugar',
+            'sodium',
             'username');
-          expect(res.body.Calories).to.equal(newNutrition.Calories);
-          expect(res.body.Total_Fat).to.equal(newNutrition.Total_Fat);
-          expect(res.body.Saturated_Fat).to.equal(newNutrition.Saturated_Fat);
-          expect(res.body.Cholesterol).to.equal(newNutrition.Cholesterol);
-          expect(res.body.Sodium).to.equal(newNutrition.Sodium);
-          expect(res.body.Potassium).to.equal(newNutrition.Potassium);
-          expect(res.body.Carbohydrates).to.equal(newNutrition.Carbohydrates);
-          expect(res.body.Dietary_Fiber).to.equal(newNutrition.Dietary_Fiber);
-          expect(res.body.Sugars).to.equal(newNutrition.Sugars);
-          expect(res.body.Protein).to.equal(newNutrition.Protein);
+          expect(res.body.calories).to.equal(newNutrition.calories);
+          expect(res.body.fat).to.equal(newNutrition.fat);
+          expect(res.body.carbs).to.equal(newNutrition.carbs);
+          expect(res.body.protein).to.equal(newNutrition.protein);
+          expect(res.body.sugar).to.equal(newNutrition.sugar);
+          expect(res.body.sodium).to.equal(newNutrition.sodium);
           expect(res.body.username).to.equal(newNutrition.username);
           expect(res.body.id).to.not.be.null;
           return NutritionList.findById(res.body._id);
         })
         .then(post => {
-          expect(newNutrition.Calories).to.equal(post.Calories);
-          expect(newNutrition.Total_Fat).to.equal(post.Total_Fat);
-          expect(newNutrition.Saturated_Fat).to.equal(post.Saturated_Fat);
-          expect(newNutrition.Cholesterol).to.equal(post.Cholesterol);
-          expect(newNutrition.Sodium).to.equal(post.Sodium);
-          expect(newNutrition.Potassium).to.equal(post.Potassium);
-          expect(newNutrition.Carbohydrates).to.equal(post.Carbohydrates);
-          expect(newNutrition.Dietary_Fiber).to.equal(post.Dietary_Fiber);
-          expect(newNutrition.Sugars).to.equal(post.Sugars);
-          expect(newNutrition.Protein).to.equal(post.Protein);
+          expect(newNutrition.calories).to.equal(post.calories);
+          expect(newNutrition.fat).to.equal(post.fat);
+          expect(newNutrition.carbs).to.equal(post.carbs);
+          expect(newNutrition.protein).to.equal(post.protein);
+          expect(newNutrition.sugar).to.equal(post.sugar);
+          expect(newNutrition.sodium).to.equal(post.sodium);
           expect(newNutrition.username).to.equal(post.username);
         });
     });
