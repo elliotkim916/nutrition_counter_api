@@ -12,7 +12,7 @@ const nutritionSchema = mongoose.Schema({
   protein : {type: Number},
   sugar : {type: Number},
   sodium : {type: Number},
-  created : {type: Date, default: Date.now()},
+  created : {type: Date, default: Date.now},
   username : {type: String}
 });
 
