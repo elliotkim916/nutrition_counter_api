@@ -12,6 +12,7 @@ const nutritionSchema = mongoose.Schema({
   protein : {type: Number},
   sugar : {type: Number},
   sodium : {type: Number},
+  created : {type: Date, default: Date.now()},
   username : {type: String}
 });
 
@@ -24,6 +25,7 @@ nutritionSchema.methods.serialize = () => {
     protein : this.protein,
     sugar : this.sugar,
     sodium : this.sodium,
+    created : this.created,
     username : this.username,
     id : this._id
   };
