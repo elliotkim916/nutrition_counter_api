@@ -1,15 +1,15 @@
 [
   {
-    "CaloriesBurned" : 500,
-    "MET" : 400,
-    "Duration" : "2 hours",
+    "caloriesBurned" : 500,
+    "duration" : 140,
+    "created" : "2019-02-22T06:46:01.287Z",
     "username" : "test-user",
     "_id": "5afb01574c7557177f786877"
   },
   {
-    "CaloriesBurned" : 400,
-    "MET" : 300,
-    "Duration" : "1.5 hours",
+    "caloriesBurned" : 400,
+    "duration" : 90,
+    "created" : "2019-02-22T06:46:01.287Z",
     "username" : "test-user",
     "_id": "5afb01574c7557177f786878"
   }
