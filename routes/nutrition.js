@@ -24,6 +24,7 @@ router.post('/:username', jsonParser, (req, res) => {
       protein : req.body.protein,
       sugar : req.body.sugar,
       sodium : req.body.sodium,
+      created : req.body.created,
       username : req.body.username  
     })
     .then(nutrition => res.status(201).json(nutrition))
