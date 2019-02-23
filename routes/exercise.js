@@ -18,10 +18,10 @@ router.get('/:username', (req, res) => {
 router.post('/:username', jsonParser, (req, res) => {
   ExerciseList
     .create({
-      CaloriesBurned : req.body.CaloriesBurned,
-      MET : req.body.MET,
-      Duration : req.body.Duration,
-      username : req.body.username 
+      caloriesBurned : req.body.caloriesBurned,
+      duration : req.body.duration,
+      username : req.body.username,
+      created : req.body.created 
     })
     .then(exercise => res.status(201).json(exercise))
     .catch(() => res.status(500).json({error : 'Something went wrong'}));
