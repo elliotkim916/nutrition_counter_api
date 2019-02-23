@@ -6,6 +6,7 @@
     "protein" : 20,
     "sugar" : 8,
     "sodium" : 120,
+    "created" : "2019-02-22T06:46:01.287Z",
     "username" : "test-user",
     "_id" : "5afb01574c7557177f786870"
   },
@@ -16,6 +17,7 @@
     "protein" : 30,
     "sugar" : 10,
     "sodium" : 125,
+    "created" : "2019-02-22T06:46:01.287Z",
     "username" : "test-user",
     "_id" : "5afb01574c7557177f786871"
   }
