@@ -89,17 +89,17 @@ describe('Nutrition Counter Server Side API', function() {
 
           res.body.forEach(post => {
             expect(post).to.be.a('object');
-            expect(post).to.include.keys('CaloriesBurned', 'MET', 'Duration', 'username');
+            expect(post).to.include.keys('caloriesBurned', 'duration', 'created', 'username', '_id');
           });
 
           resExercisePost = res.body[0];
           return ExerciseList.findById(resExercisePost._id);
         })
         .then(post => {
-          expect(resExercisePost.CaloriesBurned).to.equal(post.CaloriesBurned);
-          expect(resExercisePost.MET).to.equal(post.MET);
-          expect(resExercisePost.Duration).to.equal(post.Duration);
+          expect(resExercisePost.caloriesBurned).to.equal(post.caloriesBurned);
+          expect(resExercisePost.duration).to.equal(post.duration);
           expect(resExercisePost.username).to.equal(post.username);
+          expect(resExercisePost._id).to.equal(post.id);
         });
     });
   });
@@ -107,9 +107,9 @@ describe('Nutrition Counter Server Side API', function() {
   describe('POST endpoint of exercise', function() {
     it('should add a new exercise entry', function() {
       const newExercise = {
-        'CaloriesBurned' : 200,
-        'MET' : 100,
-        'Duration' : '1 hour',
+        'caloriesBurned' : 200,
+        'duration' : 60,
+        'created' : '2019-02-22T06:46:01.287Z',
         'username' : 'exercise-test-user',
         '_id' : '5afb01574c7557177f786879'
       };
@@ -122,18 +122,17 @@ describe('Nutrition Counter Server Side API', function() {
           expect(res).to.have.status(201);
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
-          expect(res.body).to.include.keys('CaloriesBurned', 'MET', 'Duration', 'username');
+          expect(res.body).to.include.keys('caloriesBurned', 'duration', 'created', 'username');
           expect(res.body.username).to.equal(newExercise.username);
-          expect(res.body.CaloriesBurned).to.equal(newExercise.CaloriesBurned);
-          expect(res.body.MET).to.equal(newExercise.MET);
-          expect(res.body.Duration).to.equal(newExercise.Duration);
-          expect(res.body.id).to.not.be.null;
+          expect(res.body.caloriesBurned).to.equal(newExercise.caloriesBurned);
+          expect(res.body.duration).to.equal(newExercise.duration);
+          expect(res.body.created).to.equal(newExercise.created);
+          expect(res.body._id).to.not.be.null;
           return ExerciseList.findById(res.body._id);
         })
         .then(post => {
-          expect(post.CaloriesBurned).to.equal(newExercise.CaloriesBurned);
-          expect(post.MET).to.equal(newExercise.MET);
-          expect(post.Duration).to.equal(newExercise.Duration);
+          expect(post.caloriesBurned).to.equal(newExercise.caloriesBurned);
+          expect(post.duration).to.equal(newExercise.duration);
           expect(post.username).to.equal(newExercise.username);
         });
     });
@@ -197,6 +196,7 @@ describe('Nutrition Counter Server Side API', function() {
               'protein',
               'sugar',
               'sodium',
+              'created',
               'username');
           });
 
@@ -224,6 +224,7 @@ describe('Nutrition Counter Server Side API', function() {
         'protein' : 31,
         'sugar' : 11,
         'sodium' : 126,
+        'created' : '2019-02-22T06:46:01.287Z',
         'username' : 'test-user',
         '_id' : '5afb01574c7557177f786872'
       };
@@ -243,6 +244,7 @@ describe('Nutrition Counter Server Side API', function() {
             'protein',
             'sugar',
             'sodium',
+            'created',
             'username');
           expect(res.body.calories).to.equal(newNutrition.calories);
           expect(res.body.fat).to.equal(newNutrition.fat);
@@ -250,6 +252,7 @@ describe('Nutrition Counter Server Side API', function() {
           expect(res.body.protein).to.equal(newNutrition.protein);
           expect(res.body.sugar).to.equal(newNutrition.sugar);
           expect(res.body.sodium).to.equal(newNutrition.sodium);
+          expect(res.body.created).to.equal(newNutrition.created);
           expect(res.body.username).to.equal(newNutrition.username);
           expect(res.body.id).to.not.be.null;
           return NutritionList.findById(res.body._id);
