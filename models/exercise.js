@@ -3,6 +3,7 @@
 const mongoose = require('mongoose');
 
 const exerciseSchema = mongoose.Schema({
+  exerciseName : {type : String},
   caloriesBurned : {type: Number},
   duration : {type: Number},
   created : {type: Date, default: Date.now},
@@ -11,6 +12,7 @@ const exerciseSchema = mongoose.Schema({
 
 exerciseSchema.methods.serialize = () => {
   return {
+    exerciseName : this.exerciseName,
     caloriesBurned : this.caloriesBurned,
     duration : this.duration,
     created : this.created,
