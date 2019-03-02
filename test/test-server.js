@@ -89,13 +89,14 @@ describe('Nutrition Counter Server Side API', function() {
 
           res.body.forEach(post => {
             expect(post).to.be.a('object');
-            expect(post).to.include.keys('caloriesBurned', 'duration', 'created', 'username', '_id');
+            expect(post).to.include.keys('exerciseName', 'caloriesBurned', 'duration', 'created', 'username', '_id');
           });
 
           resExercisePost = res.body[0];
           return ExerciseList.findById(resExercisePost._id);
         })
         .then(post => {
+          expect(resExercisePost.exerciseName).to.equal(post.exerciseName);
           expect(resExercisePost.caloriesBurned).to.equal(post.caloriesBurned);
           expect(resExercisePost.duration).to.equal(post.duration);
           expect(resExercisePost.username).to.equal(post.username);
@@ -107,6 +108,7 @@ describe('Nutrition Counter Server Side API', function() {
   describe('POST endpoint of exercise', function() {
     it('should add a new exercise entry', function() {
       const newExercise = {
+        'exerciseName' : 'Yoga',
         'caloriesBurned' : 200,
         'duration' : 60,
         'created' : '2019-02-22T06:46:01.287Z',
@@ -122,8 +124,9 @@ describe('Nutrition Counter Server Side API', function() {
           expect(res).to.have.status(201);
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
-          expect(res.body).to.include.keys('caloriesBurned', 'duration', 'created', 'username');
+          expect(res.body).to.include.keys('exerciseName', 'caloriesBurned', 'duration', 'created', 'username');
           expect(res.body.username).to.equal(newExercise.username);
+          expect(res.body.exerciseName).to.equal(newExercise.exerciseName);
           expect(res.body.caloriesBurned).to.equal(newExercise.caloriesBurned);
           expect(res.body.duration).to.equal(newExercise.duration);
           expect(res.body.created).to.equal(newExercise.created);
@@ -131,6 +134,7 @@ describe('Nutrition Counter Server Side API', function() {
           return ExerciseList.findById(res.body._id);
         })
         .then(post => {
+          expect(post.exerciseName).to.equal(newExercise.exerciseName);
           expect(post.caloriesBurned).to.equal(newExercise.caloriesBurned);
           expect(post.duration).to.equal(newExercise.duration);
           expect(post.username).to.equal(newExercise.username);
