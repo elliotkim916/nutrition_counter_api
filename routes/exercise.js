@@ -9,6 +9,7 @@ router.use(passport.authenticate('jwt', {session: false}));
 
 router.get('/:username', (req, res) => {
   ExerciseList
+  // .find returns an array, .findOne returns an object
     .find({username: req.params.username})
     .then(exercise => {
       res.status(200).json(exercise);
