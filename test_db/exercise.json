@@ -1,5 +1,6 @@
 [
   {
+    "exerciseName" : "Running",
     "caloriesBurned" : 500,
     "duration" : 140,
     "created" : "2019-02-22T06:46:01.287Z",
@@ -7,6 +8,7 @@
     "_id": "5afb01574c7557177f786877"
   },
   {
+    "exerciseName" : "Weight Lifting",
     "caloriesBurned" : 400,
     "duration" : 90,
     "created" : "2019-02-22T06:46:01.287Z",
