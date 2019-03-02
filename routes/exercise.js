@@ -19,6 +19,7 @@ router.get('/:username', (req, res) => {
 router.post('/:username', jsonParser, (req, res) => {
   ExerciseList
     .create({
+      exerciseName : req.body.exerciseName,
       caloriesBurned : req.body.caloriesBurned,
       duration : req.body.duration,
       username : req.body.username,
