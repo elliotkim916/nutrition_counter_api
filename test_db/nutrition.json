@@ -1,5 +1,6 @@
 [
   {
+    "food_name" : "Cheeseburger",
     "calories" : 300,
     "fat" : 8,
     "carbs" : 30,
@@ -11,6 +12,7 @@
     "_id" : "5afb01574c7557177f786870"
   },
   {
+    "food_name" : "Chicken Pot Pie",
     "calories" : 400,
     "fat" : 18,
     "carbs" : 35,
