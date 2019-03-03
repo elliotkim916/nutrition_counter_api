@@ -194,6 +194,7 @@ describe('Nutrition Counter Server Side API', function() {
           res.body.forEach(post => {
             expect(post).to.be.a('object');
             expect(post).to.include.keys(
+              'food_name',
               'calories',
               'fat',
               'carbs',
@@ -208,6 +209,7 @@ describe('Nutrition Counter Server Side API', function() {
           return NutritionList.findById(resNutritionEntry._id);
         })
         .then(post => {
+          expect(resNutritionEntry.food_name).to.equal(post.food_name);
           expect(resNutritionEntry.calories).to.equal(post.calories);
           expect(resNutritionEntry.fat).to.equal(post.fat);
           expect(resNutritionEntry.carbs).to.equal(post.carbs);
@@ -222,6 +224,7 @@ describe('Nutrition Counter Server Side API', function() {
   describe('POST endpoint of nutrition', function() {
     it('should add a new nutrition entry', function() {
       const newNutrition = {
+        'food_name' : 'Pepperoni Pizza',
         'calories' : 401,
         'fat' : 19,
         'carbs' : 36,
@@ -242,6 +245,7 @@ describe('Nutrition Counter Server Side API', function() {
           expect(res).to.be.json;
           expect(res.body).to.be.a('object');
           expect(res.body).to.include.keys(
+            'food_name',
             'calories',
             'fat',
             'carbs',
@@ -250,6 +254,7 @@ describe('Nutrition Counter Server Side API', function() {
             'sodium',
             'created',
             'username');
+          expect(res.body.food_name).to.equal(newNutrition.food_name);
           expect(res.body.calories).to.equal(newNutrition.calories);
           expect(res.body.fat).to.equal(newNutrition.fat);
           expect(res.body.carbs).to.equal(newNutrition.carbs);
@@ -262,6 +267,7 @@ describe('Nutrition Counter Server Side API', function() {
           return NutritionList.findById(res.body._id);
         })
         .then(post => {
+          expect(newNutrition.food_name).to.equal(post.food_name);
           expect(newNutrition.calories).to.equal(post.calories);
           expect(newNutrition.fat).to.equal(post.fat);
           expect(newNutrition.carbs).to.equal(post.carbs);
