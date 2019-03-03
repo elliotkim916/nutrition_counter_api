@@ -18,6 +18,7 @@ router.get('/:username', (req, res) => {
 router.post('/:username', jsonParser, (req, res) => {
   NutritionList
     .create({
+      food_name : req.body.food_name,
       calories : req.body.calories,
       fat : req.body.fat,
       carbs : req.body.carbs,
